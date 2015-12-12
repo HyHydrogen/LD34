@@ -1,4 +1,4 @@
-package me.team.ld34.graphics;
+package me.team.ld34.graphics;;
 
 import java.awt.Color;
 import java.awt.Font;

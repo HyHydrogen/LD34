@@ -166,9 +166,8 @@ public class Game extends Canvas implements Runnable {
 	public GameManager getGameManager() {
 		return gameManager;
 	}
-
+	
 	public Renderer getRenderer() {
-		return renderer;
-	}
-
+        return renderer;
+    }
 }

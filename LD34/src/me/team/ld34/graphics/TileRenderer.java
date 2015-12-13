@@ -17,11 +17,14 @@ public class TileRenderer {
 	public TileRenderer(GameManager manager) {
 		gameManager = manager;
 
-		tiles = new BufferedImage[3];
+		tiles = new BufferedImage[6];
 		try {
 			tiles[0] = ImageIO.read(getClass().getResource("/Tile Bridge Top.png"));
 			tiles[1] = ImageIO.read(getClass().getResource("/Tile Bridge Left.png"));
 			tiles[2] = ImageIO.read(getClass().getResource("/Production Tile.png"));
+			tiles[3] = ImageIO.read(getClass().getResource("/Reactor Tile.png"));
+			tiles[4] = ImageIO.read(getClass().getResource("/Core Tile.png"));
+			tiles[5] = ImageIO.read(getClass().getResource("/Laser Tower.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

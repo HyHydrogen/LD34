@@ -27,4 +27,7 @@ public class Renderer {
 		guiRenderer.render(g);
 	}
 
+	public TileRenderer getTileRenderer() {
+        return tileRenderer;
+	}
 }

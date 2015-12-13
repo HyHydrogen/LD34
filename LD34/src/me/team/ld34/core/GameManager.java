@@ -2,6 +2,7 @@ package me.team.ld34.core;
 
 import java.util.ArrayList;
 
+import me.team.ld34.graphics.PlaceTiles;
 import me.team.ld34.resources.ResourcesManager;
 import me.team.ld34.tiles.Tile;
 
@@ -9,6 +10,8 @@ public class GameManager {
 
 	private Game				game;
 	private ResourcesManager	resourceManager;
+	
+	private PlaceTiles placeTiles;
 
 	public static final int	TILE_WIDTH	= 64;
 	public static final int	TILE_HEIGHT	= 64;
@@ -41,17 +44,21 @@ public class GameManager {
 		addTile(new Tile(4, 3, Tile.TILE_PRODUCTION));
 
 	}
+	
+
+	public void addTile(Tile tile) {
+		getShipTiles().add(tile);
+	}
 
 	public ResourcesManager getResourceManager() {
 		return resourceManager;
 	}
 	
+	public PlaceTiles getTilePlaceManager() {
+		return placeTiles;
+	}
+	
 	public ArrayList<Tile> getShipTiles() {
 		return gameTiles;
 	}
-	
-	public void addTile(Tile tile) {
-		getShipTiles().add(tile);
-	}
-
 }

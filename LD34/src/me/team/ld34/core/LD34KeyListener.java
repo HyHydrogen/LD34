@@ -56,7 +56,7 @@ public class LD34KeyListener implements KeyListener, MouseWheelListener {
 	}
 
 
-	double minScale = 0.3;
+	double minScale = 0.4;
 	double maxScale = 5;
 	
 	@Override

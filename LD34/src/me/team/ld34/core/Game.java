@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -11,34 +12,34 @@ import javax.swing.JFrame;
 import me.team.ld34.graphics.Renderer;
 
 public class Game extends Canvas implements Runnable {
-	private static final long serialVersionUID = -1468256372886744451L;
+	private static final long	serialVersionUID	= -1468256372886744451L;
 
-	private boolean	running;
-	private Thread	gameThread;
+	private boolean				running;
+	private Thread				gameThread;
 
-	public final int	WIDTH	= 4;
-	public final int	HEIGHT	= 3;
-	public final int	SCALE	= 200;
+	public final int			WIDTH				= 4;
+	public final int			HEIGHT				= 3;
+	public final int			SCALE				= 200;
 
-	public static final int	TICK_RATE	= 60;
-	public static int		DELTA_TIME	= 0;
+	public static final int		TICK_RATE			= 60;
+	public static int			DELTA_TIME			= 0;
 
-	private final String TITLE = "LD34 Game";
+	private final String		TITLE				= "LD34 Game";
 
-	private JFrame frame;
+	private JFrame				frame;
 
-	private GameManager gameManager;
-	private Renderer renderer;
-	private LD34KeyListener keyListener;
-	
-	public int xScroll = 0;
-	public int yScroll = 0;
-	
+	private GameManager			gameManager;
+	private Renderer			renderer;
+	private LD34KeyListener		keyListener;
+
+	public int					xScroll				= 0;
+	public int					yScroll				= 0;
+
 	public Game() {
 		running = false;
 		gameThread = new Thread(this);
 		keyListener = new LD34KeyListener(this);
-		
+
 		frame = new JFrame(TITLE);
 
 		frame.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -50,12 +51,12 @@ public class Game extends Canvas implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.pack();
-		
+
 		addKeyListener(keyListener);
 		addMouseWheelListener(keyListener);
-		
+
 		frame.add(this);
-		
+
 		gameManager = new GameManager(this);
 		renderer = new Renderer(this);
 	}
@@ -93,13 +94,12 @@ public class Game extends Canvas implements Runnable {
 				frames = 0;
 			}
 
-			
 			try {
 				gameThread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		stop();
@@ -117,18 +117,23 @@ public class Game extends Canvas implements Runnable {
 
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		
-		
-		renderer.render(g);
-		
-		g.dispose();
 
+		renderer.render(g);
+
+		g.dispose();
 		bs.show();
 
 	}
 
 	private void tick() {
 		keyListener.tick();
+
+		Point mouseLocation = frame.getMousePosition();
+		if (mouseLocation != null) {
+			gameManager.getTilePlaceManager().setMouseX((int) mouseLocation.getX());
+			gameManager.getTilePlaceManager().setMouseY((int) mouseLocation.getY());
+
+		}
 	}
 
 	public void start() {
@@ -157,12 +162,13 @@ public class Game extends Canvas implements Runnable {
 		Game game = new Game();
 		game.start();
 	}
-	
+
 	public GameManager getGameManager() {
 		return gameManager;
 	}
-	
+
 	public Renderer getRenderer() {
 		return renderer;
 	}
+
 }
